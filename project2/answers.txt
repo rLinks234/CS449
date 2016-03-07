@@ -1,0 +1,18 @@
+djw67_1:
+
+	password (w/o quotes): "PRzhUWkjfrsTLmeLWgSmoauvjXM"
+
+	used strings and tried each string found in executable
+	script command used:
+
+	strings djw67_1 > out1.txt; while read p; do outTxt=`echo $p | ./djw67_1`; if [[ $outTxt == *"Congrat"* ]]; then echo $p; fi; done <out1.txt
+
+djw67_2:
+
+	password (w/o quotes): "3.141593"
+
+	used gdb and stepped through the program. noticed that register mm7 was set to PI (3.141593....), which was very suspicious. Later found that a function 'd()' was called in main(), which then called c(), s(), and e() -- which all contained logic that eventually set register %eax to a nonzero value if the user input was "3.141593", which then jumped to a printf("") call that said the passcode was correct
+
+djw67_3:
+
+	
