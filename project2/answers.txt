@@ -15,4 +15,15 @@ djw67_2:
 
 djw67_3:
 
-	
+	tried every string (like djw67_1) to no avail
+	with gdb, main() isn't found, so debugging initially wasn't working. Used the following command to find the entry point:
+
+		readelf -a djw67_3
+
+	which showed that the entry point is the '.text' label (w/o quotes).
+
+	setting a breakpoint at .text (break *0x080483a0) allowed me to debug from the entry point.
+
+	this is a very tricky one. First, it jumps to a main function called __libc_start_main, which then jumps to a function that is dynamically located in memory (this is the main() function, right?)
+
+	The first thing this main() function does is call a function at f7f37aab, which I found to be within the getchar() routine. 
